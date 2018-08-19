@@ -12,7 +12,7 @@ public class SendMail {
     private Message _msg;
     private Multipart _multipart;
 
-    public SendMail(Properties props, String username, String password) {
+    public SendMail(Properties props, final String username, final String password) {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
