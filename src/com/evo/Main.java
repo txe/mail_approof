@@ -1,12 +1,8 @@
 package com.evo;
 
 import java.util.Properties;
-import javax.activation.*;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import org.stringtemplate.v4.*;
 
 public class Main {
 
@@ -19,7 +15,7 @@ public class Main {
         final String[] mailTo = {"xxx@yandex.ru"};
         final String subject = "Don't worry, it's a test";
 
-        final String content = "Test an email sending<br><a href=#>aaa</a>";
+        final String content = mailContent();
         final String mimeType = "text/html; charset=utf-8";
         final String attachementPath = "f:\\keyboard.ahk";
         final String attachementName = "keyboard.ahk";
@@ -42,5 +38,13 @@ public class Main {
         } catch (Exception e) {
             e = e;
         }
+    }
+
+    private static String mailContent() {
+        // StringTemplate : https://github.com/antlr/stringtemplate4/blob/master/doc/index.md
+        String template = "Test an $what$ sending<br><a href=#>aaa</a>";
+        ST st = new ST(template, '$', '$');
+        st.add("what", "email");
+        return st.render();
     }
 }
